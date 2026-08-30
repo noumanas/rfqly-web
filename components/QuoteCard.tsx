@@ -20,6 +20,7 @@ function Cell({ label, value }: { label: string; value: React.ReactNode }) {
 
 export function QuoteCard({ meta }: { meta: QuoteMeta }) {
   const pb = meta.priceBreakdown;
+  const hasDiscount = !!pb && pb.discountPct > 0;
   return (
     <div style={{ background: "#fff", border: "1px solid #e2e8f0", borderRadius: 12, overflow: "hidden", width: "100%", marginTop: 2 }}>
       <div
@@ -44,6 +45,22 @@ export function QuoteCard({ meta }: { meta: QuoteMeta }) {
         <Cell label="Spec" value={meta.spec || meta.unit || "-"} />
         <Cell label="In stock" value={meta.inStock ? "Yes" : "Check with team"} />
       </div>
+      {hasDiscount && (
+        <div
+          style={{
+            padding: "10px 14px",
+            borderBottom: "1px solid #f1f5f9",
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <div style={{ fontSize: 11, color: "#16a34a", fontWeight: 600 }}>
+            Discount ({(pb!.discountPct * 100).toLocaleString(undefined, { maximumFractionDigits: 0 })}%)
+          </div>
+          <div style={{ fontSize: 13, fontWeight: 700, color: "#16a34a" }}>-{fmtMoney(pb!.discountAmount)}</div>
+        </div>
+      )}
       <div
         style={{
           padding: "12px 14px",

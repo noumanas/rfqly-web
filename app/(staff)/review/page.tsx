@@ -16,6 +16,7 @@ type Quote = {
     quantity?: number;
     total?: number;
     discountPct?: number;
+    discountAmount?: number;
   };
   createdAt: string;
   rfq: {
@@ -143,6 +144,16 @@ export default function ReviewQueuePage() {
                   </span>
                   <span style={{ fontWeight: 800, color: "#0e7490" }}>{fmtMoney(selected.priceBreakdown.total)}</span>
                 </div>
+                {!!selected.priceBreakdown.discountPct && (
+                  <div style={{ ...priceRowStyle, marginTop: 4 }}>
+                    <span style={{ color: "#16a34a" }}>
+                      Discount ({(selected.priceBreakdown.discountPct * 100).toLocaleString(undefined, { maximumFractionDigits: 0 })}%)
+                    </span>
+                    <span style={{ fontWeight: 700, color: "#16a34a" }}>
+                      -{fmtMoney(selected.priceBreakdown.discountAmount)}
+                    </span>
+                  </div>
+                )}
               </Section>
             )}
 
