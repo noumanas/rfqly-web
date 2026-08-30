@@ -6,6 +6,13 @@ import { Logo } from "./Logo";
 import { MessageThread } from "./MessageThread";
 import { AttachIcon, ChatIcon, CloseIcon, SendIcon } from "./icons";
 
+const DEFAULT_SUGGESTIONS = [
+  "Need 10 Inverex Jollywood 620W solar panels, price & stock?",
+  "2000 pcs 3mm acrylic sheet, size 12x18 - best rate?",
+  "5 Dahua outdoor CCTV cameras - please quote",
+  "50 pcs LED bulb 9W - rate per piece?",
+];
+
 export function ChatWidget({
   title,
   open,
@@ -14,6 +21,7 @@ export function ChatWidget({
   onSend,
   isThinking,
   variant = "corner",
+  suggestions = DEFAULT_SUGGESTIONS,
 }: {
   title: string;
   open: boolean;
@@ -23,6 +31,8 @@ export function ChatWidget({
   isThinking?: boolean;
   /** "corner" previews the real embeddable widget; "modal" centers it as a focused dialog (e.g. the try-it demo). */
   variant?: "corner" | "modal";
+  /** Quick-reply chips shown before the buyer's first message. Pass [] to disable. */
+  suggestions?: string[];
 }) {
   const [draft, setDraft] = useState("");
 
@@ -45,6 +55,19 @@ export function ChatWidget({
       </div>
 
       <MessageThread messages={messages} isThinking={isThinking} style={{ padding: 14 }} />
+
+      {messages.length === 0 && !isThinking && suggestions.length > 0 && (
+        <div style={suggestionsWrapStyle}>
+          <div style={suggestionsLabelStyle}>Try asking</div>
+          <div style={suggestionsRowStyle}>
+            {suggestions.map((s) => (
+              <button key={s} type="button" onClick={() => onSend(s)} style={suggestionChipStyle}>
+                {s}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       <form onSubmit={submit} style={formStyle}>
         <button type="button" title="Attach a spec sheet or photo (coming soon)" style={attachBtnStyle}>
@@ -203,6 +226,38 @@ const sendBtnStyle: CSSProperties = {
   alignItems: "center",
   justifyContent: "center",
   flexShrink: 0,
+};
+
+const suggestionsWrapStyle: CSSProperties = {
+  padding: "0 12px 10px",
+  background: "#fff",
+  borderTop: "1px solid #f1f5f9",
+};
+
+const suggestionsLabelStyle: CSSProperties = {
+  fontSize: 10,
+  fontWeight: 700,
+  letterSpacing: ".05em",
+  textTransform: "uppercase",
+  color: "#94a3b8",
+  margin: "10px 2px 8px",
+};
+
+const suggestionsRowStyle: CSSProperties = {
+  display: "flex",
+  flexWrap: "wrap",
+  gap: 6,
+};
+
+const suggestionChipStyle: CSSProperties = {
+  border: "1px solid #e2e8f0",
+  background: "#f8fafc",
+  color: "#0f172a",
+  borderRadius: 999,
+  padding: "6px 12px",
+  fontSize: 12,
+  cursor: "pointer",
+  textAlign: "left",
 };
 
 const disclaimerStyle: CSSProperties = {
