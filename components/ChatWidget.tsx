@@ -13,6 +13,13 @@ const DEFAULT_SUGGESTIONS = [
   "50 pcs LED bulb 9W - rate per piece?",
 ];
 
+const DEFAULT_QUOTE_FOLLOWUPS = [
+  "Yes, please proceed with the order",
+  "Can you offer a better price?",
+  "I need a different quantity",
+  "I have another item to quote",
+];
+
 export function ChatWidget({
   title,
   open,
@@ -22,6 +29,7 @@ export function ChatWidget({
   isThinking,
   variant = "corner",
   suggestions = DEFAULT_SUGGESTIONS,
+  quoteFollowups = DEFAULT_QUOTE_FOLLOWUPS,
 }: {
   title: string;
   open: boolean;
@@ -33,6 +41,8 @@ export function ChatWidget({
   variant?: "corner" | "modal";
   /** Quick-reply chips shown before the buyer's first message. Pass [] to disable. */
   suggestions?: string[];
+  /** Quick-reply chips shown right after a quote card, so the buyer can keep going without typing. Pass [] to disable. */
+  quoteFollowups?: string[];
 }) {
   const [draft, setDraft] = useState("");
 
@@ -43,6 +53,12 @@ export function ChatWidget({
     onSend(text);
     setDraft("");
   }
+
+  const lastMessage = messages[messages.length - 1];
+  const showInitialSuggestions = messages.length === 0 && !isThinking && suggestions.length > 0;
+  const showQuoteFollowups =
+    !isThinking && !showInitialSuggestions && lastMessage?.sender !== "buyer" && lastMessage?.meta?.type === "quote" && quoteFollowups.length > 0;
+  const activeSuggestions = showInitialSuggestions ? suggestions : showQuoteFollowups ? quoteFollowups : null;
 
   const panelContent = (
     <>
@@ -56,11 +72,11 @@ export function ChatWidget({
 
       <MessageThread messages={messages} isThinking={isThinking} style={{ padding: 14 }} />
 
-      {messages.length === 0 && !isThinking && suggestions.length > 0 && (
+      {activeSuggestions && (
         <div style={suggestionsWrapStyle}>
-          <div style={suggestionsLabelStyle}>Try asking</div>
+          <div style={suggestionsLabelStyle}>{showInitialSuggestions ? "Try asking" : "Quick replies"}</div>
           <div style={suggestionsRowStyle}>
-            {suggestions.map((s) => (
+            {activeSuggestions.map((s) => (
               <button key={s} type="button" onClick={() => onSend(s)} style={suggestionChipStyle}>
                 {s}
               </button>
