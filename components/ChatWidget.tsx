@@ -61,20 +61,42 @@ export function ChatWidget({
 
   return (
     <>
-      <button onClick={onToggle} style={bubbleStyle} aria-label="Toggle chat">
+      <style>{`
+        @keyframes rfq-modal-in { from { opacity: 0; transform: scale(.96) translateY(8px); } to { opacity: 1; transform: scale(1) translateY(0); } }
+        @media (max-width: 520px) {
+          .rfq-chat-bubble { bottom: 14px !important; right: 14px !important; }
+          .rfq-corner-panel {
+            left: 10px !important;
+            right: 10px !important;
+            bottom: 78px !important;
+            width: auto !important;
+            height: min(72vh, 560px) !important;
+          }
+          .rfq-modal-backdrop { padding: 0 !important; align-items: flex-end !important; }
+          .rfq-modal-panel {
+            width: 100% !important;
+            height: min(88vh, 640px) !important;
+            border-radius: 16px 16px 0 0 !important;
+          }
+        }
+      `}</style>
+      <button onClick={onToggle} style={bubbleStyle} className="rfq-chat-bubble" aria-label="Toggle chat">
         <ChatIcon size={18} />
       </button>
 
       {open && variant === "modal" && (
-        <div style={backdropStyle} onClick={onToggle}>
-          <style>{`@keyframes rfq-modal-in { from { opacity: 0; transform: scale(.96) translateY(8px); } to { opacity: 1; transform: scale(1) translateY(0); } }`}</style>
-          <div style={modalPanelStyle} onClick={(e) => e.stopPropagation()}>
+        <div style={backdropStyle} className="rfq-modal-backdrop" onClick={onToggle}>
+          <div style={modalPanelStyle} className="rfq-modal-panel" onClick={(e) => e.stopPropagation()}>
             {panelContent}
           </div>
         </div>
       )}
 
-      {open && variant === "corner" && <div style={cornerPanelStyle}>{panelContent}</div>}
+      {open && variant === "corner" && (
+        <div style={cornerPanelStyle} className="rfq-corner-panel">
+          {panelContent}
+        </div>
+      )}
     </>
   );
 }

@@ -264,23 +264,43 @@ export default function MarketingPage() {
 
   return (
     <div ref={rootRef} style={pageStyle}>
-      <nav style={navStyle}>
+      <style>{`
+        @media (max-width: 860px) {
+          .rfq-nav { padding: 12px 18px !important; }
+          .rfq-nav-link { display: none !important; }
+          .rfq-hero-section { padding: 44px 20px 36px !important; }
+          .rfq-hero-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+          .hero-h1 { font-size: 30px !important; }
+          .rfq-section { padding: 48px 20px !important; }
+          .rfq-section-title { font-size: 24px !important; }
+          .rfq-three-col { grid-template-columns: 1fr !important; }
+          .rfq-arch-grid { grid-template-columns: 1fr !important; gap: 28px !important; }
+          .rfq-feature-grid { grid-template-columns: 1fr !important; }
+          .rfq-stats-section { padding: 40px 20px !important; }
+          .stat-number { font-size: 30px !important; }
+          .rfq-cta-heading { font-size: 26px !important; }
+        }
+        @media (max-width: 480px) {
+          .rfq-stats-grid { grid-template-columns: 1fr !important; gap: 24px !important; }
+        }
+      `}</style>
+      <nav style={navStyle} className="rfq-nav">
         <div style={navBrandStyle}>
           <Logo size={26} />
           Rfqly
         </div>
         <div style={navLinksStyle}>
-          <a href="#how-it-works" style={navLinkStyle}>How it works</a>
-          <a href="#architecture" style={navLinkStyle}>Architecture</a>
-          <a href="#channels" style={navLinkStyle}>Channels</a>
-          <a href="#why-agentic" style={navLinkStyle}>Why agentic</a>
+          <a href="#how-it-works" style={navLinkStyle} className="rfq-nav-link">How it works</a>
+          <a href="#architecture" style={navLinkStyle} className="rfq-nav-link">Architecture</a>
+          <a href="#channels" style={navLinkStyle} className="rfq-nav-link">Channels</a>
+          <a href="#why-agentic" style={navLinkStyle} className="rfq-nav-link">Why agentic</a>
           <a href="/demo" style={navCtaStyle}>Try live demo</a>
         </div>
       </nav>
 
       {/* Hero */}
-      <section style={heroSectionStyle}>
-        <div style={heroGridStyle}>
+      <section style={heroSectionStyle} className="rfq-hero-section">
+        <div style={heroGridStyle} className="rfq-hero-grid">
           <div>
             <div className="hero-eyebrow" style={eyebrowStyle}>
               AGENTIC AUTOMATION &middot; BUILT FOR DISTRIBUTORS &amp; WHOLESALERS
@@ -323,9 +343,9 @@ export default function MarketingPage() {
       </section>
 
       {/* Problem */}
-      <section style={sectionStyle}>
+      <section style={sectionStyle} className="rfq-section">
         <SectionHeading eyebrow="THE REAL PROBLEM" title="It was never your pricing." subtitle="It's how fast you reply. The first credible answer usually wins the order - regardless of who's cheapest." />
-        <div style={threeColGridStyle}>
+        <div style={threeColGridStyle} className="rfq-three-col">
           {PAIN_POINTS.map((p) => (
             <div key={p.title} className="problem-card" style={painCardStyle}>
               <div style={iconBadgeStyle}>{p.icon}</div>
@@ -337,7 +357,7 @@ export default function MarketingPage() {
       </section>
 
       {/* How it works */}
-      <section id="how-it-works" style={sectionStyle}>
+      <section id="how-it-works" style={sectionStyle} className="rfq-section">
         <SectionHeading eyebrow="HOW IT WORKS" title="One pipeline, every channel." subtitle="The same agentic pipeline handles WhatsApp, email, and website chat - structured the same way end to end." />
         <div className="steps-wrap" style={stepsWrapStyle}>
           <div style={lineTrackStyle}>
@@ -357,11 +377,11 @@ export default function MarketingPage() {
       </section>
 
       {/* Agentic architecture */}
-      <section id="architecture" style={sectionStyle}>
-        <div style={archGridStyle}>
+      <section id="architecture" style={sectionStyle} className="rfq-section">
+        <div style={archGridStyle} className="rfq-arch-grid">
           <div>
             <div style={sectionEyebrowStyle}>UNDER THE HOOD</div>
-            <h2 style={{ ...sectionTitleStyle, textAlign: "left" }}>Built as a supervised multi-agent pipeline.</h2>
+            <h2 style={{ ...sectionTitleStyle, textAlign: "left" }} className="rfq-section-title">Built as a supervised multi-agent pipeline.</h2>
             <p style={{ ...sectionSubtitleStyle, textAlign: "left", marginBottom: 20 }}>
               Not one giant prompt trying to do everything - a supervisor orchestrates specialized agents, each
               with its own tool, so the parts that must be exact (pricing, stock) never depend on a model's
@@ -383,9 +403,9 @@ export default function MarketingPage() {
       </section>
 
       {/* Channels */}
-      <section id="channels" style={sectionStyle}>
+      <section id="channels" style={sectionStyle} className="rfq-section">
         <SectionHeading eyebrow="EVERY CHANNEL, ONE AGENT" title="Wherever buyers ask, it answers." subtitle="One pipeline behind every surface - no separate tools to babysit per channel." />
-        <div style={threeColGridStyle}>
+        <div style={threeColGridStyle} className="rfq-three-col">
           {CHANNELS.map((c) => (
             <div key={c.title} className="channel-card" style={channelCardStyle}>
               <div style={iconBadgeStyle}>{c.icon}</div>
@@ -397,9 +417,9 @@ export default function MarketingPage() {
       </section>
 
       {/* Why agentic */}
-      <section id="why-agentic" style={sectionStyle}>
+      <section id="why-agentic" style={sectionStyle} className="rfq-section">
         <SectionHeading eyebrow="WHY AGENTIC" title="Built to be trusted with your margin." subtitle="An agent that knows when to answer, and when to ask a human first." />
-        <div style={featureGridStyle}>
+        <div style={featureGridStyle} className="rfq-feature-grid">
           {FEATURES.map((f) => (
             <div key={f.title} className="feature-card" style={featureCardStyle}>
               <div style={featureIconStyle}>{f.icon}</div>
@@ -413,7 +433,7 @@ export default function MarketingPage() {
       </section>
 
       {/* Live demo teaser */}
-      <section style={sectionStyle}>
+      <section style={sectionStyle} className="rfq-section">
         <SectionHeading eyebrow="SEE IT WORK" title="Watch it answer a real request." subtitle="This is the same pipeline running live - not a mockup." />
         <div className="demo-visual" style={demoTeaserWrapStyle}>
           <div style={demoTeaserCardStyle}>
@@ -426,8 +446,8 @@ export default function MarketingPage() {
       </section>
 
       {/* Stats */}
-      <section style={statsSectionStyle}>
-        <div style={statsGridStyle}>
+      <section style={statsSectionStyle} className="rfq-stats-section">
+        <div style={statsGridStyle} className="rfq-stats-grid">
           {STATS.map((s) => (
             <div key={s.label} style={{ textAlign: "center" }}>
               <div className="stat-number" data-value={s.value} data-suffix={s.suffix} style={statNumberStyle}>
@@ -440,9 +460,9 @@ export default function MarketingPage() {
       </section>
 
       {/* Final CTA */}
-      <section style={{ ...sectionStyle, textAlign: "center" }}>
+      <section style={{ ...sectionStyle, textAlign: "center" }} className="rfq-section">
         <div className="cta-fade">
-          <h2 style={ctaHeadingStyle}>Stop losing RFQs to slower replies.</h2>
+          <h2 style={ctaHeadingStyle} className="rfq-cta-heading">Stop losing RFQs to slower replies.</h2>
           <p style={{ ...heroSubStyle, margin: "0 auto 28px", textAlign: "center" }}>
             See the same agent that answers here quote a real request from your own catalog.
           </p>
@@ -491,7 +511,7 @@ function SectionHeading({ eyebrow, title, subtitle }: { eyebrow: string; title: 
   return (
     <div style={{ textAlign: "center", maxWidth: 640, margin: "0 auto 44px" }}>
       <div style={sectionEyebrowStyle}>{eyebrow}</div>
-      <h2 style={sectionTitleStyle}>{title}</h2>
+      <h2 style={sectionTitleStyle} className="rfq-section-title">{title}</h2>
       <p style={sectionSubtitleStyle}>{subtitle}</p>
     </div>
   );
