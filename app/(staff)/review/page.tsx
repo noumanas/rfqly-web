@@ -77,8 +77,8 @@ export default function ReviewQueuePage() {
   const hasPrice = selected && typeof selected.priceBreakdown?.total === "number";
 
   return (
-    <div style={rootStyle}>
-      <div style={sidebarStyle}>
+    <div style={rootStyle} className="rfq-staff-split">
+      <div style={sidebarStyle} className="rfq-staff-sidebar">
         <div style={sidebarHeaderStyle}>
           <h2 style={{ margin: 0, fontSize: 16 }}>Review queue</h2>
           <span style={countPillStyle}>{quotes.length}</span>
@@ -98,7 +98,7 @@ export default function ReviewQueuePage() {
         ))}
       </div>
 
-      <div style={detailWrapStyle}>
+      <div style={detailWrapStyle} className="rfq-staff-detail">
         {!selected ? (
           <p style={{ padding: 24, color: "#94a3b8" }}>Select a quote to review.</p>
         ) : (

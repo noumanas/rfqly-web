@@ -131,20 +131,28 @@ export default function DemoPage() {
 
   return (
     <div style={pageStyle}>
-      <div style={wrapStyle}>
+      <style>{`
+        @media (max-width: 600px) {
+          .rfq-demo-wrap { padding: 40px 16px 32px !important; }
+          .rfq-demo-h1 { font-size: 22px !important; margin-bottom: 28px !important; }
+          .rfq-demo-hero-card { padding: 16px 16px !important; }
+          .rfq-demo-textarea { font-size: 16px !important; min-height: 90px !important; }
+        }
+      `}</style>
+      <div style={wrapStyle} className="rfq-demo-wrap">
         <header style={brandStyle}>
           <Logo size={28} />
           <div style={{ fontWeight: 700, fontSize: 15, letterSpacing: "-0.01em" }}>Rfqly</div>
         </header>
 
-        <h1 style={h1Style}>
+        <h1 style={h1Style} className="rfq-demo-h1">
           <strong style={{ color: "#0f172a", fontWeight: 700 }}>Rfqly</strong> is the AI quoting agent for
           distributors &amp; wholesalers.
           <br />
           It reads the request, checks stock and price, and replies in minutes.
         </h1>
 
-        <div style={heroCardStyle}>
+        <div style={heroCardStyle} className="rfq-demo-hero-card">
           <div style={heroLabelStyle}>
             <div style={heroLabelIconStyle}>
               <SparkleIcon size={14} />
@@ -162,6 +170,7 @@ export default function DemoPage() {
             }}
             placeholder="e.g. need 10 Inverex Jollywood 620W panels, steel frame"
             style={textareaStyle}
+            className="rfq-demo-textarea"
           />
           <div style={heroActionsStyle}>
             <button type="button" onClick={clickAttach} style={attachButtonStyle} title="Attach a spec sheet or photo (coming soon)">

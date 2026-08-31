@@ -118,8 +118,8 @@ export default function LiveConversationsPage() {
   }
 
   return (
-    <div style={rootStyle}>
-      <div style={sidebarStyle}>
+    <div style={rootStyle} className="rfq-staff-split">
+      <div style={sidebarStyle} className="rfq-staff-sidebar">
         <div style={sidebarHeaderStyle}>
           <h2 style={{ margin: 0, fontSize: 16 }}>Live conversations</h2>
           <span style={countPillStyle}>{conversations.length}</span>
@@ -137,7 +137,7 @@ export default function LiveConversationsPage() {
         ))}
       </div>
 
-      <div style={detailWrapStyle}>
+      <div style={detailWrapStyle} className="rfq-staff-detail">
         {!detail ? (
           <p style={{ padding: 24, color: "#94a3b8" }}>Select a conversation.</p>
         ) : (
